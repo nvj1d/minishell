@@ -10,7 +10,7 @@ OBJS = $(SRCS:.c=.o)
 
 HEADER = ./src/minishell.h
 
-LIBFT = ./libft/libft.a
+LIBFT = ./src/libft/libft.a
 
 all : $(NAME)
 

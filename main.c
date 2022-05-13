@@ -9,6 +9,30 @@
 /*   Updated: 2022/05/09 19:23:06 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../minishell.h"
+
+static void ft_head()
+{
+	static int first_time = 1;
+	char *clear_screen;
+	if(first_time)
+	{
+		clear_screen = "\e[1;1H\e[2J";
+		write (1, clear_screen, 12);
+		first_time = 0;
+		//print the header here!
+	}
+}
+
+static	char	*get_cmd()
+{
+	char *str;
+
+	str = readline("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m");
+	if(str && *str)
+		add_history(str); //??
+	return (str);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -17,10 +41,17 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1)
 	{
-		//print not a valid argument!
-		//return some value here!
+		print_error(av[1], "No such file or directory");
+		return (-1);
 	}
-	//print the head 'MINISHELL'
-	// env is a global var
+	ft_head();
 	ft_init(env);
+	// while (1)
+	// {
+	// 	signal_handler();
+	// 	cmd = get_cmd();
+	// 	parser(cmd);
+	// 	g_shell.cmd_list_head = g_shell.cmd_list;
+	// }
+	
 }
