@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:23:17 by mnajid            #+#    #+#             */
-/*   Updated: 2022/05/09 22:40:51 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/05/14 15:00:54 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,15 @@ t_env_list	*get_env_elem(char *input)
 	elem = (t_env_list *)malloc(sizeof(t_env_list));
 	elem->equal = 0;
 	if (elem == NULL)
-	{
-		//exit with an error (in malloc)
-	}
+		exit_with_error("error: in allocation!");
 	elem->key = get_key(input);
 	if (elem->key == NULL)
-	{
-		//exit with an error (in malloc)
-	}
+		exit_with_error("error: in allocation!");
 	if (ft_strchr(input, '='))
 	{
 		elem->val = ft_strdup(ft_strchr(input, '=') + 1);
 		if (elem->val == NULL)
-		{
-			//exit with an error (in malloc)
-		}
+			exit_with_error("error: in allocation!");
 		elem->equal = 1;
 	}
 	else
@@ -66,7 +60,7 @@ char	**collect_env(t_env_list *env_list)
 {
 	int		i;
 	int		len;
-	char	env;
+	char	**env;
 
 	i = 0;
 	len = len_env_list(0, g_shell.env_list);

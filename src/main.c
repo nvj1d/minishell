@@ -6,31 +6,37 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:17:28 by mnajid            #+#    #+#             */
-/*   Updated: 2022/05/09 19:23:06 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:56:53 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../minishell.h"
 
-static void ft_head()
+#include "minishell.h"
+
+static void	ft_head(void)
 {
-	static int first_time = 1;
-	char *clear_screen;
-	if(first_time)
+	static int	first_time = 1;
+	char		*clear_screen;
+
+	if (first_time)
 	{
 		clear_screen = "\e[1;1H\e[2J";
 		write (1, clear_screen, 12);
 		first_time = 0;
-		//print the header here!
+		printf("               _         _        __           __ __");
+		printf("   ____ ___   (_)____   (_)_____ / /_   ___   / // /");
+		printf("  / __ `__ \ / // __ \ / // ___// __ \ / _ \ / // / ");
+		printf(" / / / / / // // / / // /(__  )/ / / //  __// // /  ");
+		printf("/_/ /_/ /_//_//_/ /_//_//____//_/ /_/ \___//_//_/   ");
 	}
 }
 
-static	char	*get_cmd()
+static	char	*get_cmd(void)
 {
-	char *str;
+	char	*str;
 
 	str = readline("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m");
-	if(str && *str)
-		add_history(str); //??
+	if (str && *str)
+		add_history(str);
 	return (str);
 }
 
@@ -46,12 +52,11 @@ int	main(int ac, char **av, char **env)
 	}
 	ft_head();
 	ft_init(env);
-	// while (1)
-	// {
-	// 	signal_handler();
-	// 	cmd = get_cmd();
-	// 	parser(cmd);
-	// 	g_shell.cmd_list_head = g_shell.cmd_list;
-	// }
-	
+	while (1)
+	{
+		signal_handler();
+		cmd = get_cmd();
+		parser(cmd);
+		g_shell.cmd_list_head = g_shell.cmd_list;
+	}
 }
