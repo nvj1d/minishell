@@ -23,6 +23,7 @@ SRCS =	./src/main.c \
 		./src/builtins/export.c \
 		./src/envirement/lst_envadd_back.c \
 		./src/envirement/lst_envlast.c \
+		./src/envirement/lst_envnew.c \
 		./src/builtins/env.c \
 		./src/builtins/init.c \
 		./src/builtins/pwd.c\
