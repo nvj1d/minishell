@@ -48,7 +48,7 @@ int	main(int ac, char **av,char **env)
 		return (127);
 	}
 	ft_head();
-	// ft_init(env);
+	ft_init(env);
 	// while (1)
 	// {
 	// 	signal_handler();

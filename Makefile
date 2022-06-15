@@ -16,9 +16,23 @@ CC = gcc
 
 FLAGS = -Wall -Werror -Wextra
 
-SRCS =	./src/main.c\
-		./src/errors/error.c\
-# 				./src/init.c\				
+SRCS =	./src/main.c \
+		./src/init.c \
+		./src/utils/utils1.c \
+		./src/utils/utils2.c \
+		./src/builtins/export.c \
+		./src/envirement/lst_envadd_back.c \
+		./src/envirement/lst_envlast.c \
+		./src/builtins/env.c \
+		./src/builtins/init.c \
+		./src/builtins/pwd.c\
+		./src/builtins/echo.c\
+		./src/builtins/cd.c\
+		./src/builtins/parse.c\
+		./src/builtins/unset.c\
+		./src/builtins/exit.c\
+		./src/builtins/export_utils.c \
+		
 # 				./src/parser/dollar.c\
 # 				./src/parser/pipe.c\
 # 				./src/parser/parser.c\
@@ -27,16 +41,7 @@ SRCS =	./src/main.c\
 # 				./src/parser/redirection.c\
 # 				./src/parser/redirection2.c\
 # 				./src/signals/signal.c\
-# 				./src/builtins/init.c\
-# 				./src/builtins/pwd.c\
-# 				./src/builtins/echo.c\
-# 				./src/builtins/cd.c\
-# 				./src/builtins/parse.c\
-# 				./src/builtins/env.c\
-# 				./src/builtins/export.c\
-# 				./src/builtins/unset.c\
-# 				./src/builtins/ft_exit.c\
-# 				./src/builtins/export_utils.c
+				
 
 OBJS = $(SRCS:.c=.o)
 

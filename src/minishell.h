@@ -155,7 +155,5 @@ t_env_list	*lst_envlast(t_env_list *lst);
 int			check_atoi(char *str);
 t_env_list	*lst_envnew(char *key, char *val);
 
-/* errors */
-void	print_error(char *arg, char *err_name);
 
 #endif
