@@ -23,6 +23,7 @@ void	sig_init(int sig)
 	rl_redisplay();
 	g_shell.status = 1;
 }
+
 void	signal_handler(void)
 {
 	signal(SIGINT, sig_init);
