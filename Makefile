@@ -64,11 +64,11 @@ $(NAME) : $(OBJS) $(HEADER)
 #bonus : $(OBJS_B)
 
 clean :
-	$(MAKE) clean -C ./libft
+	$(MAKE) clean -C ./src/libft
 	rm -rf $(OBJS)
 
 fclean :  clean
-	$(MAKE) fclean -C ./libft
+	$(MAKE) fclean -C ./src/libft
 	rm -rf $(NAME)
 
 re : fclean $(NAME)
