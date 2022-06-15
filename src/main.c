@@ -31,19 +31,19 @@ static void	ft_head(void)
 	}
 }
 
-// static	char	*get_cmd(void)
-// {
-// 	char	*str;
+static	char	*get_cmd(void)
+{
+	char	*str;
 
-// 	str = readline("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m");
-// 	if (str && *str)
-// 		add_history(str);
-// 	return (str);
-// }
+	str = readline("\033[0;33mMinishell\033[0;32m ~$ \033[4;0m");
+	if (str && *str)
+		add_history(str);
+	return (str);
+}
 
 int	main(int ac, char **av,char **env)
 {
-	// char	*cmd;
+	char	*cmd;
 
 	(void)av;
 	if (ac != 1)
@@ -53,11 +53,11 @@ int	main(int ac, char **av,char **env)
 	}
 	ft_head();
 	ft_init(env);
-	// while (1)
-	// {
-	// 	signal_handler();
-	// 	cmd = get_cmd();
+	while (1)
+	{
+		signal_handler();
+	 	cmd = get_cmd();
 	// 	parser(cmd);
 	// 	g_shell.cmd_list_head = g_shell.cmd_list;
-	// }
+	}
 }
