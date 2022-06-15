@@ -57,7 +57,7 @@ int	main(int ac, char **av,char **env)
 	{
 		signal_handler();
 	 	cmd = get_cmd();
-	// 	parser(cmd);
-	// 	g_shell.cmd_list_head = g_shell.cmd_list;
+		parser(cmd);
+		g_shell.cmd_list_head = g_shell.cmd_list;
 	}
 }

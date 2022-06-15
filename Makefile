@@ -34,16 +34,15 @@ SRCS =	./src/main.c \
 		./src/builtins/exit.c \
 		./src/builtins/export_utils.c \
 		./src/signals/signal.c \
-# 				./src/parser/dollar.c\
-# 				./src/parser/pipe.c\
-# 				./src/parser/parser.c\
-# 				./src/parser/pipe2.c\
-# 				./src/parser/preparsing.c\
-# 				./src/parser/redirection.c\
-# 				./src/parser/redirection2.c\
-# 				
+		./src/parser/dollar.c\
+		./src/parser/pipe.c\
+		./src/parser/parser.c\
+		./src/parser/pipe2.c\
+		./src/parser/preparsing.c\
+		./src/parser/redirection.c\
+		./src/parser/redirection2.c\
 				
-
+				
 OBJS = $(SRCS:.c=.o)
 
 HEADER = ./src/minishell.h
