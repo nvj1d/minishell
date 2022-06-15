@@ -91,6 +91,17 @@ t_minishell	g_shell;
 
 void		rl_replace_line(const char *text, int clear_undo);
 
+/* Utils Directory */
+void		print_error(char *arg, char *err_name);
+void		exit_with_error(char *str);
+int			file_check(char *file_path, int mode);
+void		clear_all(t_minishell *shell);
+int			len_2d_str(char **str);
+void		clean_env_list(t_env_list *list);	
+char		*collect_str_env(t_env_list *elem);
+void		clean_cmd_list(t_cmd *cmd_list);
+void		cmd_end_works(int **fds, pid_t *pids, int i);
+
 /* Parsing Directory */
 void		*parser(char *str);
 int			preparsing(const char *str);
@@ -129,7 +140,7 @@ void		print_env_list(t_env_list *env_list, int flag);
 int			valid_export(char *arg);
 
 /* Main Directory */
-void		initialisation(char **envp);
+void		ft_init(char **envp);
 char		**collect_env(t_env_list *env_list);
 t_env_list	*get_env_elem(char *input);
 
@@ -137,5 +148,14 @@ t_env_list	*get_env_elem(char *input);
 void		signal_handler(void);
 void		signal_init(void);
 void		signal_init_here(void);
+
+/* environment Directory */
+void		lst_envadd_back(t_env_list **list, t_env_list *new);
+t_env_list	*lst_envlast(t_env_list *lst);
+int			check_atoi(char *str);
+t_env_list	*lst_envnew(char *key, char *val);
+
+/* errors */
+void	print_error(char *arg, char *err_name);
 
 #endif

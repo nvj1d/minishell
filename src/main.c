@@ -22,41 +22,38 @@ static void	ft_head(void)
 		clear_screen = "\e[1;1H\e[2J";
 		write (1, clear_screen, 12);
 		first_time = 0;
-		printf("               _         _        __           __ __");
-		printf("   ____ ___   (_)____   (_)_____ / /_   ___   / // /");
-		printf("  / __ `__ \ / // __ \ / // ___// __ \ / _ \ / // / ");
-		printf(" / / / / / // // / / // /(__  )/ / / //  __// // /  ");
-		printf("/_/ /_/ /_//_//_/ /_//_//____//_/ /_/ \___//_//_/   ");
+		printf("MINISHELL\n");
 	}
 }
 
-static	char	*get_cmd(void)
-{
-	char	*str;
+// static	char	*get_cmd(void)
+// {
+// 	char	*str;
 
-	str = readline("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m");
-	if (str && *str)
-		add_history(str);
-	return (str);
-}
+// 	str = readline("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m");
+// 	if (str && *str)
+// 		add_history(str);
+// 	return (str);
+// }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av,char **env)
 {
-	char	*cmd;
+	// char	*cmd;
 
 	(void)av;
+	(void)env;
 	if (ac != 1)
 	{
 		print_error(av[1], "No such file or directory");
-		return (-1);
+		return (127);
 	}
 	ft_head();
-	ft_init(env);
-	while (1)
-	{
-		signal_handler();
-		cmd = get_cmd();
-		parser(cmd);
-		g_shell.cmd_list_head = g_shell.cmd_list;
-	}
+	// ft_init(env);
+	// while (1)
+	// {
+	// 	signal_handler();
+	// 	cmd = get_cmd();
+	// 	parser(cmd);
+	// 	g_shell.cmd_list_head = g_shell.cmd_list;
+	// }
 }

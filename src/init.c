@@ -64,15 +64,16 @@ char	**collect_env(t_env_list *env_list)
 
 	i = 0;
 	len = len_env_list(0, g_shell.env_list);
-	env = (char **)malloc(sizeof(char *) * (len + 1));
+	env = (char **)malloc (sizeof(char *) * (len + 1));
 	while (i < len)
 	{
-		if (env_list -> equal)
-			env[i] = collect_str_env(env_list);
+		if (env_list->equal)
+			env[i] = collect_str_env (env_list);
 		i++;
-		env[i] = NULL;
-		return (env);
+		env_list = env_list->next;
 	}
+	env[i] = NULL;
+	return (env);
 }
 
 void	get_env_list(t_env_list **env_list, char **envp)
