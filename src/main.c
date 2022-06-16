@@ -35,7 +35,7 @@ static	char	*get_cmd(void)
 {
 	char	*str;
 
-	str = readline("\033[0;32m Minishell \033[0;32m ~$ \033[4;0m");
+	str = readline("\033[0;32m Minishell\033[0;32m ~$ \033[4;0m");
 	if (str && *str)
 		add_history(str);
 	return (str);

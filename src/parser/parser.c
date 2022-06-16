@@ -69,7 +69,7 @@ void	*parser(char *str)
 {
 	if (str == NULL)
 	{
-		ft_putendl_fd("\033[0;33mMinishell\033[0;32m ⎇ \033[4;0m exit", 2);
+		ft_putendl_fd("\033[0;31m Minishell \033[0;32m~$ \033[4;0m exit", 2);
 		exit(0);
 	}
 	if (str && str[0] == '\0')
