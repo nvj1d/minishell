@@ -1,6 +1,6 @@
 # minishell
 
-this is the sructure of our shell wich will be our only global variable:
+this is the sructure of our shell wich will be our only global variable: __
 `` sh
 typedef struct s_minishell
 {
