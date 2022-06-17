@@ -1,5 +1,5 @@
 
-##  the structre of variables:  
+##  the structure of variables:  
 this is the sructure of our shell wich will be our only global variable:  
 ```c
 typedef struct s_minishell  
