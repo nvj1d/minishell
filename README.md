@@ -360,35 +360,20 @@ void	signal_handler(void)
 ```
 if the user press **ctrl+c** we will call the **sig_init** function  
 and if he press **ctrl+\\** we will ignore the signal    
-the last signal is **ctrl+d** which will be a **NULL** value returned by the **readline**  
+the last signal is **ctrl+d** which will be a **NULL** value returned by the **readline**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### void	sig_init(int sig)
+```c
+void	sig_init(int sig)
+{
+	(void)sig;
+	rl_on_new_line();
+	rl_redisplay();
+	write(2, "  \n", 3);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	g_shell.status = 1;
+}
+```
+//explain the readline here!
