@@ -21,7 +21,7 @@ typedef struct s_minishell <br />
 	struct s_cmd	*cmd_list_head;  
 }  			t_minishell;  
 ``
-the declaration of the variable (in the header) will be like this:  
+the declaration of the variable (in the header) will be like this:<br/>
 `` sh
 t_minishell g_shell;  
 ``
