@@ -395,4 +395,28 @@ static	char	*get_cmd(void)
 
 this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history** then we return the line  
 
+after getting the command we parse this cmd using **parser(cmd);**  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
