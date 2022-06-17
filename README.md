@@ -108,6 +108,8 @@ the fds of input and output:
 	g_shell.stdin = dup(STDIN_FILENO);
 	g_shell.stdout = dup(STDOUT_FILENO);
 ```
+here stdin takes the value of the smallest fd available same for stdout  
+in this example this is 3 and 4  
 
 the status of the shell:  
 ```c
