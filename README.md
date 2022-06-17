@@ -377,3 +377,21 @@ void	sig_init(int sig)
 }
 ```
 //explain the readline here!
+
+
+after handling the signals we get the command input of the user using **get_cmd()**  
+
+```c
+static	char	*get_cmd(void)
+{
+	char	*str;
+
+	str = readline("\033[0;32m Minishell\033[0;32m ~$ \033[4;0m");
+	if (str && *str)
+		add_history(str);
+	return (str);
+}
+```
+
+this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history**
+
