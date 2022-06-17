@@ -338,3 +338,57 @@ void	set_builtin_funcs(t_minishell *shell)
 }
 ```
 //ad builtins here!
+
+after that we create an infinite loop **while(1)** to make the shell interactive with the user  
+first we handle the signals using the **signal_handler();** fucntion  
+
+## signals:
+
+we have three type of signals the **ctrl+c**,**ctrl+d**,**ctrl+\\**  
+
+the **ctrl+c** or **SIGINT** interrput the process and give the user a new line   
+the **ctrl+\\** or **SIGQUIT** does nothing so we will ignore him  
+and the **cltr+d** will end the process and exit the shell  
+
+### void	signal_handler(void)
+```c
+void	signal_handler(void)
+{
+	signal(SIGINT, sig_init);
+	signal(SIGQUIT, SIG_IGN);
+}
+```
+if the user press **ctrl+c** we will call the **sig_init** function  
+and if he press **ctrl+\\** we will ignore the signal    
+the last signal is **ctrl+d** which will be a **NULL** value returned by the **readline**  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
