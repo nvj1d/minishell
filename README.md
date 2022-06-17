@@ -50,4 +50,111 @@ typedef struct s_cmd
 ```
 
 ### in the main :  
-int the main function we have three arguments
+int the main function we have three arguments 
+ ```c
+int main(int ac, char **av,char **env)
+```
+the number of arguments (ac) the input from the terminal (av) and the (env) wich is a 2D array    with the envirement variable  
+
+we have the command that we gonna get  
+```c
+char	*cmd;
+```
+we won't use the av  
+```c
+(void)av;
+```
+then we gonna check the number of arguments:  
+```c
+if (ac != 1)
+	{
+		print_error(av[1], "No such file or directory");
+		return (127);
+	}
+```
+if it's not **one** we will display an error **""no such file or directory""** and return a value of **127** which means that the command is not found in the **path** system variable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
