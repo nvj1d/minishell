@@ -393,5 +393,6 @@ static	char	*get_cmd(void)
 }
 ```
 
-this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history**
+this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history**  
+
 
