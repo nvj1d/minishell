@@ -1,6 +1,5 @@
-# minishell
 
-### the structre of variables:  
+##  the structre of variables:  
 this is the sructure of our shell wich will be our only global variable:  
 ```c
 typedef struct s_minishell  
@@ -49,7 +48,7 @@ typedef struct s_cmd
 }				t_cmd;
 ```
 
-### in the main :  
+## in the main :  
 int the main function we have three arguments 
  ```c
 int main(int ac, char **av,char **env)
@@ -78,6 +77,8 @@ then we call **ft_head()** that gonna clear the screen with the string **"\e[1;1
 \e"** is escape and what that printf() line is telling the terminal to move the cursor to line 1 column 1 **"\e[1;1H"** and to move all the text currently in the terminal to the scrollback buffer **"\e[2J"** then display an **ASCII text banner** if it's the first time  
 
 after that we call **ft_init(env)**:  
+
+## init the g_shell:
 
 ```c
 void	ft_init(char **env)
@@ -133,18 +134,173 @@ getting the builtins functions names into the **char			**builtin_names;**
 	set_builtin_names(&g_shell);
 ```
 
+### get_env_list(t_env_list **env_list, char **envp)
+```c
+void	get_env_list(t_env_list **env_list, char **envp)
+{
+	int	i;
+
+	i = -1;
+	while (envp[++i])
+	{
+		lst_envadd_back(env_list, get_env_elem(envp[i]));
+	}
+}
+```
+this functions takes the address of the env **linked list** and the **env** of the system as arguments  
+then it gets every variable in the **env** using the **get_env_elem(envp[i])** function and add him in the back of to this list
+### t_env_list	*get_env_elem(char *input)
+```c
+t_env_list	*get_env_elem(char *input)
+{
+	t_env_list	*elem;
+
+	elem = (t_env_list *)malloc(sizeof(t_env_list));
+	elem->equal = 0;
+	if (elem == NULL)
+		exit_with_error("error: in allocation!");
+	elem->key = get_key(input);
+	if (elem->key == NULL)
+		exit_with_error("error: in allocation!");
+	if (ft_strchr(input, '='))
+	{
+		elem->val = ft_strdup(ft_strchr(input, '=') + 1);
+		if (elem->val == NULL)
+			exit_with_error("error: in allocation!");
+		elem->equal = 1;
+	}
+	else
+		elem->val = NULL;
+	elem->next = NULL;
+	return (elem);
+}
+```
+in the structure of the linked list we have three variables the **equal**,the **key**, and the **val**.
+we initialise equal with 0  
+and we get the key using the **get_key(input);** function  
+then we get the value after **'='** after getting this value succefully we set the equal value to 1  
+
+### char	*get_key(char *var)
+```c
+char	*get_key(char *var)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_strchr(var, '='))
+		return (ft_strdup(var));
+	while (var[i] != '=')
+		i++;
+	return (ft_substr(var, 0, i));
+}
+```
+the **get_key** fucntion takes a string as an argument if it has **'='** then return the caracters before him if not then return all the string  
+ 
+### void	lst_envadd_back(t_env_list **list, t_env_list *new)
+```c
+void	lst_envadd_back(t_env_list **list, t_env_list *new)
+{
+	t_env_list	*tmp;
+
+	if (list)
+	{
+		if (*list)
+		{
+			tmp = lst_envlast(*list);
+			tmp->next = new;
+		}
+		else
+		{
+			*list = new;
+		}
+	}
+}
+
+```
+this functions takes two arguments the address of the linked list and the element we get 
+if the linked list is not empty we get the last element in this list then his next gonna be our new element if not we simply affect the new element to the list  
 
 
+to return the last element of this linked list we use this function:
+```c
+t_env_list	*lst_envlast(t_env_list *lst)
+{
+	if ((void *)0 == lst)
+		return ((void *)0);
+	while (lst)
+	{
+		if (!lst->next)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
+}
 
+```
+### char	**collect_env(t_env_list *env_list)
+```c
+char	**collect_env(t_env_list *env_list)
+{
+	int		i;
+	int		len;
+	char	**env;
 
+	i = 0;
+	len = len_env_list(0, g_shell.env_list);
+	env = (char **)malloc (sizeof(char *) * (len + 1));
+	while (i < len)
+	{
+		if (env_list->equal)
+			env[i] = collect_str_env (env_list);
+		i++;
+		env_list = env_list->next;
+	}
+	env[i] = NULL;
+	return (env);
+}
+```
+this fuction purpose is to extract a 2D array from the liked list created previously 
+we get the length of the list using **len_env_list(0, g_shell.env_list);**
+we allocate an array with a length of **len + 1**
+then for every element in this list we get the pair **key:value** if **equal == 1**
+using the fuction **collect_str_env (env_list);**  
 
+#### int	len_env_list(int mode, t_env_list *env_list)
+```c
+int	len_env_list(int mode, t_env_list *env_list)
+{
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
+	while (env_list)
+	{
+		if (!env_list->equal)
+			j++;
+		i++;
+		env_list = env_list->next;
+	}
+	if (mode == 1)
+		return (i);
+	else
+		return (i - j);
+}
+```
+#### char	*collect_str_env(t_env_list *elem)
+```c
+char	*collect_str_env(t_env_list *elem)
+{
+	char	*str;
+	char	*temp;
 
+	temp = ft_strjoin (elem->key, "=");
+	str = ft_strjoin (temp, elem->val);
+	free (temp);
+	return (str);
+}
 
-
-
-
-
+```
 
 
 
