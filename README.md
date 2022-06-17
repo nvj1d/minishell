@@ -335,3 +335,4 @@ void	set_builtin_funcs(t_minishell *shell)
 	shell->builtin_funcs[6] = unset;
 }
 ```
+//ad builtins here!
