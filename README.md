@@ -50,4 +50,4 @@ typedef struct s_cmd
 ```
 
 ### in the main :  
-
+int the main function we have three arguments
