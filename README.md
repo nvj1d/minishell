@@ -1,5 +1,6 @@
 # minishell
 
+### the structre of variables:  
 this is the sructure of our shell wich will be our only global variable:  
 ```c
 typedef struct s_minishell  
@@ -35,3 +36,18 @@ typedef struct s_env_list
 	struct s_env_list	*next; //the next env variable  
 }				t_env_list;  
 ```
+and this is the structure of our command:  
+```c
+typedef struct s_cmd
+{
+	char			**args; //the arguments of the command
+	int				pipe_in;
+	int				pipe_out;
+	t_redir			*redir_in;
+	t_redir			*redir_out;
+	struct s_cmd	*next; // the next one 
+}				t_cmd;
+```
+
+### in the main :  
+
