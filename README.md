@@ -2,7 +2,7 @@
 
 this is the sructure of our shell wich will be our only global variable:  
 `` sh
-typedef struct s_minishell<br />  
+typedef struct s_minishell <br />  
 {  
 	int				stdin; //fd input   
 	int				stdout; //fd output  
