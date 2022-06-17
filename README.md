@@ -396,6 +396,67 @@ static	char	*get_cmd(void)
 this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history** then we return the line  
 
 after getting the command we parse this cmd using **parser(cmd);**  
+```c 
+void	*parser(char *str)
+{
+	if (str == NULL)
+	{
+		ft_putendl_fd("\033[0;31m Minishell \033[0;32m~$ \033[4;0m exit", 2);
+		exit(0);
+	}
+	if (str && str[0] == '\0')
+	{
+		free(str);
+		return (NULL);
+	}
+	else if (!preparsing(str) || str[0] == '|')
+	{
+		free(str);
+		error_parser("minishell: syntax error near unexpected token");
+	}
+	else
+	{
+		str = check_syntax(str, -1, 0);
+		split_cmd(str);
+		check_pipe();
+	}
+	return (NULL);
+}
+```
+in this function id the command returned previously is **NULL** then it's  **ctrl+d**
+then we kill the process and exit  
+if it's empty then we return **NULL**  
+then we check if it starts or ends with a pipe **|** or has problem in quotes **'** or **"**  
+using the **preparsing(const char *str)** function  
+```c
+int	preparsing(const char *str)
+{
+	char	ch;
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			ch = str[i];
+			i++;
+			while (str[i] && str[i] != ch)
+				i++;
+			if (!str[i] || str[i] != ch)
+				return (0);
+		}
+		if (str[i] == '|')
+		{
+			while (str[++i] && str[i] == ' ')
+				;
+			if (str[i + 1] == ' ' || str[i + 1] == '\0')
+				return (0);
+		}
+	}
+	return (1);
+}
+```
 
 
 
