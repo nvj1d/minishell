@@ -457,7 +457,40 @@ int	preparsing(const char *str)
 	return (1);
 }
 ```
+if there is no problem we check the suntax using **check_syntax(str, -1, 0);**  
+```c
+char	*check_syntax(char *str, int i, int ok)
+{
+	char	*temp;
+	char	*temp_2;
 
+	temp = ft_strdup(str);
+	free(str);
+	while (temp[++i])
+	{
+		if (temp[i] == '\"' && !ok)
+		{
+			i++;
+			ok += 1;
+		}
+		if (temp[i] == '\"' && ok)
+			ok--;
+		if (temp[i] == '\'' && ok != 1)
+			while (temp[++i] && temp[i] != '\'')
+				;
+		if (temp[i] == '$')
+		{
+			temp_2 = ft_strdup(temp);
+			free(temp);
+			temp = ft_dollar(temp_2, &(i), g_shell.env);
+		}
+	}
+	return (temp);
+}
+```
+using the **ft_dollar(temp_2, &(i), g_shell.env);**
+
+//test the preparssing ..
 
 
 
