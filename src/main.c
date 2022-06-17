@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:17:28 by mnajid            #+#    #+#             */
-/*   Updated: 2022/05/14 14:56:53 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/06/17 18:25:02 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, char **av,char **env)
 	(void)av;
 	if (ac != 1)
 	{
-		print_error(av[1], "No such file or directory");
+		print_error(av[1], "No such file or directory, the syntax is \033[0;32m./minishell\033[4;0m without arguments!");
 		return (127);
 	}
 	ft_head();
