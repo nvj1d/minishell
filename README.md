@@ -360,11 +360,174 @@ void	signal_handler(void)
 ```
 if the user press **ctrl+c** we will call the **sig_init** function  
 and if he press **ctrl+\\** we will ignore the signal    
-the last signal is **ctrl+d** which will be a **NULL** value returned by the **readline**  
+the last signal is **ctrl+d** which will be a **NULL** value returned by the **readline**
+
+### void	sig_init(int sig)
+```c
+void	sig_init(int sig)
+{
+	(void)sig;
+	rl_on_new_line();
+	rl_redisplay();
+	write(2, "  \n", 3);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	g_shell.status = 1;
+}
+```
+//explain the readline here!
 
 
+after handling the signals we get the command input of the user using **get_cmd()**  
 
+```c
+static	char	*get_cmd(void)
+{
+	char	*str;
 
+	str = readline("\033[0;32m Minishell\033[0;32m ~$ \033[4;0m");
+	if (str && *str)
+		add_history(str);
+	return (str);
+}
+```
+
+this function display a line **~$Minishell** and get the input of the user and if this input is valid and not empty we store the line using **add_history** then we return the line  
+
+after getting the command we parse this cmd using **parser(cmd);**  
+```c 
+void	*parser(char *str)
+{
+	if (str == NULL)
+	{
+		ft_putendl_fd("\033[0;31m Minishell \033[0;32m~$ \033[4;0m exit", 2);
+		exit(0);
+	}
+	if (str && str[0] == '\0')
+	{
+		free(str);
+		return (NULL);
+	}
+	else if (!preparsing(str) || str[0] == '|')
+	{
+		free(str);
+		error_parser("minishell: syntax error near unexpected token");
+	}
+	else
+	{
+		str = check_syntax(str, -1, 0);
+		split_cmd(str);
+		check_pipe();
+	}
+	return (NULL);
+}
+```
+in this function id the command returned previously is **NULL** then it's  **ctrl+d**
+then we kill the process and exit  
+if it's empty then we return **NULL**  
+then we check if it starts or ends with a pipe **|** or has an odd number of quotes **'** or **"**  
+using the **preparsing(const char *str)** function  
+```c
+int	preparsing(const char *str)
+{
+	char	ch;
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			ch = str[i];
+			i++;
+			while (str[i] && str[i] != ch)
+				i++;
+			if (!str[i] || str[i] != ch)
+				return (0);
+		}
+		if (str[i] == '|')
+		{
+			while (str[++i] && str[i] == ' ')
+				;
+			if (str[i + 1] == ' ' || str[i + 1] == '\0')
+				return (0);
+		}
+	}
+	return (1);
+}
+```
+if there is no problem we check the syntax of the command using **check_syntax(str, -1, 0);** to see if we have a pair number of **"** and if we have a **$** to replace the identifier by his value    
+```c
+char	*check_syntax(char *str, int i, int ok)
+{
+	char	*temp;
+	char	*temp_2;
+
+	temp = ft_strdup(str);
+	free(str);
+	while (temp[++i])
+	{
+		if (temp[i] == '\"' && !ok)
+		{
+			i++;
+			ok += 1;
+		}
+		if (temp[i] == '\"' && ok)
+			ok--;
+		if (temp[i] == '\'' && ok != 1)
+			while (temp[++i] && temp[i] != '\'')
+				;
+		if (temp[i] == '$')
+		{
+			temp_2 = ft_strdup(temp);
+			free(temp);
+			temp = ft_dollar(temp_2, &(i), g_shell.env);
+		}
+	}
+	return (temp);
+}
+```
+using the **ft_dollar(temp_2, &(i), g_shell.env);**
+
+```c
+char	*ft_dollar(char *str, int *i, char **envp)
+{
+	char	*key;
+	char	*value;
+	char	*ret;
+	int		j;
+
+	j = *i;
+	while (str[++(*i)])
+	{
+		if (!ifkey(str[*i]))
+			break ;
+	}
+	if (*i == j + 1)
+		return (str);
+	key = ft_substr(str, j + 1, *i - j - 1);
+	value = envp_value(key, envp, 0, -1);
+	ret = concat_str_value(str, value, j, i);
+	free(key);
+	free(value);
+	free(str);
+	return (ret);
+}
+```
+this function takes the command with the **$** sign and and replace every variable by it's value! and return the the full command  
+this line return the key before the **=**
+```c 
+key = ft_substr(str, j + 1, *i - j - 1);
+```
+and this return the value  
+```c 
+value = envp_value(key, envp, 0, -1);
+```
+and this return the line with the value if it's not empty!  
+```c
+ret = concat_str_value(str, value, j, i);
+```
 
 
 
