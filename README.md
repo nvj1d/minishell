@@ -516,9 +516,18 @@ char	*ft_dollar(char *str, int *i, char **envp)
 }
 ```
 this function takes the command with the **$** sign and and replace every variable by it's value! and return the the full command  
-
-
-
+this line return the key before the **=**
+```c 
+key = ft_substr(str, j + 1, *i - j - 1);
+```
+and this return the value  
+```c 
+value = envp_value(key, envp, 0, -1);
+```
+and this return the line with the value if it's not empty!  
+```c
+ret = concat_str_value(str, value, j, i);
+```
 
 
 
