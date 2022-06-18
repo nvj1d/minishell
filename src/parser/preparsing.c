@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 14:46:17 by mnajid            #+#    #+#             */
-/*   Updated: 2022/05/14 15:03:30 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/06/18 14:31:57 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*check_syntax(char *str, int i, int ok)
 {
 	char	*temp;
 	char	*temp_2;
-
+	
 	temp = ft_strdup(str);
 	free(str);
 	while (temp[++i])

@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 14:46:10 by mnajid            #+#    #+#             */
-/*   Updated: 2022/05/14 15:03:19 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/06/18 16:31:07 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**command_split(char *str, int i, int j, int h)
 {
 	char	**cmds;
-
+	//here ..!
 	cmds = ft_calloc(sizeof(char *), 100);
 	while (str[++i])
 	{
@@ -27,6 +27,7 @@ char	**command_split(char *str, int i, int j, int h)
 		str[i] == '>' || str[i] == '<') && j != i)
 		{
 			cmds[h++] = ft_substr(str, j, i - j);
+			printf("%s\n",cmds[h-1]);
 			if (str[i] == '\0')
 				break ;
 		}
@@ -92,7 +93,6 @@ char	*pipe_parse(int *i, char *str, int j, int k)
 	char	**temp_cmd;
 	char	**cmd;
 	char	*ret;
-
 	temp_cmd = command_split(ft_substr(str, 0, *i), -1, 0, 0);
 	ret = ft_substr(str, *i + 1, ft_strlen(str));
 	cmd = ft_calloc(sizeof(char *), 100);
