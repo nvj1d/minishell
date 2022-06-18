@@ -426,7 +426,7 @@ void	*parser(char *str)
 in this function id the command returned previously is **NULL** then it's  **ctrl+d**
 then we kill the process and exit  
 if it's empty then we return **NULL**  
-then we check if it starts or ends with a pipe **|** or has problem in quotes **'** or **"**  
+then we check if it starts or ends with a pipe **|** or has an odd number of quotes **'** or **"**  
 using the **preparsing(const char *str)** function  
 ```c
 int	preparsing(const char *str)
@@ -457,7 +457,7 @@ int	preparsing(const char *str)
 	return (1);
 }
 ```
-if there is no problem we check the suntax using **check_syntax(str, -1, 0);**  
+if there is no problem we check the syntax of the command using **check_syntax(str, -1, 0);** to see if we have a pair number of **"** and if we have a **$** to replace the identifier by his value    
 ```c
 char	*check_syntax(char *str, int i, int ok)
 {
@@ -490,7 +490,39 @@ char	*check_syntax(char *str, int i, int ok)
 ```
 using the **ft_dollar(temp_2, &(i), g_shell.env);**
 
-//test the preparssing ..
+```c
+char	*ft_dollar(char *str, int *i, char **envp)
+{
+	char	*key;
+	char	*value;
+	char	*ret;
+	int		j;
+
+	j = *i;
+	while (str[++(*i)])
+	{
+		if (!ifkey(str[*i]))
+			break ;
+	}
+	if (*i == j + 1)
+		return (str);
+	key = ft_substr(str, j + 1, *i - j - 1);
+	value = envp_value(key, envp, 0, -1);
+	ret = concat_str_value(str, value, j, i);
+	free(key);
+	free(value);
+	free(str);
+	return (ret);
+}
+```
+this function takes the command with the **$** sign and and replace every variable by it's value! and return the the full command  
+
+
+
+
+
+
+
 
 
 
