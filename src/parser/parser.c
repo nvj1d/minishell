@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 14:46:02 by mnajid            #+#    #+#             */
-/*   Updated: 2022/06/19 15:44:21 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/06/19 17:15:27 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	add_pipe(int i)
 		g_shell.cmd_list = g_shell.cmd_list->next;
 	}
 }
+
 void	check_pipe(void)
 {
 	t_cmd	*temp;

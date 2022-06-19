@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:17:28 by mnajid            #+#    #+#             */
-/*   Updated: 2022/06/17 18:25:02 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/06/19 17:29:33 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ static void	ft_head(void)
 		clear_screen = "\e[1;1H\e[2J";
 		write (1, clear_screen, 12);
 		first_time = 0;
-		printf("██╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗    \n");
-		printf("████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║    \n");
-		printf("██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║  \n");
-		printf("██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║  \n");
-		printf("██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗ \n");
-		printf("╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ \n");
+		printf("██╗   ███╗██╗███╗   ██╗██╗");
+		printf("███████╗██╗  ██╗███████╗██╗     ██╗\n");
+		printf("████╗ ████║██║████╗  ██║██║██╔════╝");
+		printf("██║  ██║██╔════╝██║     ██║    \n");
+		printf("██╔████╔██║██║██╔██╗ ██║██║██████");
+		printf("█╗███████║█████╗  ██║     ██║  \n");
+		printf("██║╚██╔╝██║██║██║╚██╗██║██║╚════██");
+		printf("║██╔══██║██╔══╝  ██║     ██║  \n");
+		printf("██║ ╚═╝ ██║██║██║ ╚████║██║███████║");
+		printf("██║  ██║███████╗███████╗███████╗ \n");
+		printf("╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚");
+		printf("═╝  ╚═╝╚══════╝╚══════╝╚══════╝ \n");
 	}
 }
 
@@ -41,14 +47,14 @@ static	char	*get_cmd(void)
 	return (str);
 }
 
-int	main(int ac, char **av,char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	*cmd;
 
 	(void)av;
 	if (ac != 1)
 	{
-		print_error(av[1], "No such file or directory, the syntax is \033[0;32m./minishell\033[4;0m without arguments!");
+		print_error(av[1], "No such file or directory");
 		return (127);
 	}
 	ft_head();
@@ -56,7 +62,7 @@ int	main(int ac, char **av,char **env)
 	while (1)
 	{
 		signal_handler();
-	 	cmd = get_cmd();
+		cmd = get_cmd();
 		parser(cmd);
 		g_shell.cmd_list_head = g_shell.cmd_list;
 	}
