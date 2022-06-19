@@ -16,8 +16,8 @@ typedef struct s_minishell
 	char			**builtin_names; //the names of our funcs  
 	void			(*builtin_funcs[7])(void); // array of our funcs  
 	pid_t			*pids;  
-	t_env_list		*env_list;  
-	struct s_cmd	*cmd_list;  
+	t_env_list		*env_list; // splited env variavles 
+	struct s_cmd	*cmd_list; // splited commands 
 	struct s_cmd	*cmd_list_head;  
 }  			t_minishell;  
 ```
@@ -31,7 +31,7 @@ typedef struct s_env_list
 {
 	char				*key; //the identifier of the env variable  
 	char				*val; //the value -- key:val  
-	int					equal;  
+	int					equal; // not null
 	struct s_env_list	*next; //the next env variable  
 }				t_env_list;  
 ```
@@ -40,12 +40,21 @@ and this is the structure of our command:
 typedef struct s_cmd
 {
 	char			**args; //the arguments of the command
-	int				pipe_in;
-	int				pipe_out;
-	t_redir			*redir_in;
-	t_redir			*redir_out;
+	int				pipe_in; //fd input
+	int				pipe_out; // fd output
+	t_redir			*redir_in; // input redirection
+	t_redir			*redir_out; // output redirection
 	struct s_cmd	*next; // the next one 
 }				t_cmd;
+```
+this is the redirection  
+```c
+typedef struct s_redir
+{
+	int					type_redr; //< << > >>
+	char				*filename; //the file
+	struct s_redir		*next; // the next one
+}				t_redir;
 ```
 
 ## in the main :  
@@ -529,13 +538,70 @@ and this return the line with the value if it's not empty!
 ret = concat_str_value(str, value, j, i);
 ```
 
+after verifying the syntax of the command we split it  
+using **split_cmd(str);**  
 
+```c
+void	split_cmd(char *str)
+{
+	int		i;
+	char	ch;
 
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			ch = str[i];
+			while (str[++i] && str[i] != ch)
+				;
+		}
+		if (str[i] == '|')
+			str = pipe_parse(&i, str, 0, 0);
+	}
+	str = pipe_parse(&i, str, 0, 0);
+	free(str);
+}
+```
+this function calls the **pipe_parse(&i, str, 0, 0);** function 
+```c
+char	*pipe_parse(int *i, char *str, int j, int k)
+{
+	char	**temp_cmd;
+	char	**cmd;
+	char	*ret;
+	temp_cmd = command_split(ft_substr(str, 0, *i), -1, 0, 0);
+	ret = ft_substr(str, *i + 1, ft_strlen(str));
+	cmd = ft_calloc(sizeof(char *), 100);
+	while (temp_cmd[j])
+	{
+		if (check_redir_cmd(temp_cmd[j]))
+			j++;
+		else
+			cmd[k++] = ft_strdup(temp_cmd[j]);
+		j++;
+	}
+	ft_lstadd_back_parse(&g_shell.cmd_list, ft_lstnew_parse(cmd));
+	if (check_redir(str, *i))
+		redir(temp_cmd, -1);
+	free(str);
+	clear_list(temp_cmd);
+	*i = 0;
+	return (ret);
+}
+```
+splitting the first command of the line :  
+```c
+	temp_cmd = command_split(ft_substr(str, 0, *i), -1, 0, 0);
+```
+the rest of the line:  
+```c
+	ret = ft_substr(str, *i + 1, ft_strlen(str));
+```
 
-
-
-
-
+after that if there is a redirection we move on else take a copy of the splited command and add it to our shell command linked list **g_shell.cmd_list**  
+then if there is a redirection we call **redir(temp_cmd, -1);** 
+ this function add the redirection to it's linked list  
 
 
 
