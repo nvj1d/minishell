@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:17:28 by mnajid            #+#    #+#             */
-/*   Updated: 2022/06/19 17:29:33 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/07/23 20:49:05 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ int	main(int ac, char **av, char **env)
 		cmd = get_cmd();
 		parser(cmd);
 		g_shell.cmd_list_head = g_shell.cmd_list;
+		execution();
+		clean_cmd_list(g_shell.cmd_list_head);
+		g_shell.cmd_list_head = NULL;
 	}
 }

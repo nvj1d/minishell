@@ -6,7 +6,7 @@
 #    By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/14 14:45:17 by mnajid            #+#    #+#              #
-#    Updated: 2022/05/14 14:45:18 by mnajid           ###   ########.fr        #
+#    Updated: 2022/07/23 21:02:46 by mnajid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,13 @@ SRCS =	./src/main.c \
 		./src/parser/preparsing.c\
 		./src/parser/redirection.c\
 		./src/parser/redirection2.c\
-				
-				
+		./src/execution/utils1.c\
+		./src/execution/utils2.c\
+		./src/execution/execution.c\
+		./src/execution/set_redirection.c\
+		./src/execution/here_doc.c
+
+	
 OBJS = $(SRCS:.c=.o)
 
 HEADER = ./src/minishell.h
@@ -59,8 +64,7 @@ $(NAME) : $(OBJS) $(HEADER)
 
 %.o : %.c $(HEADER)
 	$(CC) $(FLAGS) -I $(HEADER) -c $< -o $@
-	
-#bonus : $(OBJS_B)
+
 
 clean :
 	$(MAKE) clean -C ./src/libft

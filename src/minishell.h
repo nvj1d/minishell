@@ -6,7 +6,7 @@
 /*   By: mnajid <mnajid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 14:59:33 by mnajid            #+#    #+#             */
-/*   Updated: 2022/06/19 17:18:48 by mnajid           ###   ########.fr       */
+/*   Updated: 2022/07/23 20:53:56 by mnajid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,12 @@ void		lst_envadd_back(t_env_list **list, t_env_list *new);
 t_env_list	*lst_envlast(t_env_list *lst);
 int			check_atoi(char *str);
 t_env_list	*lst_envnew(char *key, char *val);
+
+/* execution */
+int			execution(void);
+int			get_pids_fds(t_cmd *cmd_list);
+void		close_fds(int **fds);
+int			open_redirs(t_cmd *cmd_list);
+int			here_doc(char *delimiter, int *fd);
 
 #endif
